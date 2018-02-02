@@ -108,13 +108,19 @@ function checkUpdate() {
     //feedURL = `https://[your-app-release-server].herokuapp.com/update/win32/${app.getVersion()}`;
   } else if (process.platform === "darwin") {
     // 배포 통지 서버의 URL 설정(macOS의 경우)
-    feedURL = "https://[your-app-release-server].herokuapp.com/update/darwin_" + process.arch + "/" + _electron.app.getVersion();
+    feedURL = "https://github.com/yoonCY/0922project/releases/${app.getVersion()}";
+  } else {
+    feedURL = "https://github.com/yoonCY/0922project/releases/${app.getVersion()}";
   }
 
   if (!feedURL) return;
   ////"package:sign-exe": "signcode './out/Electron API Demos-win32-ia32/Electron API Demos.exe' --cert ~/electron-api-demos.p12 --prompt --name 'Electron API Demos' --url 'http://electron.atom.io'",
   //"package:sign-installer": "signcode './out/windows-installer/ElectronAPIDemosSetup.exe' --cert ~/electron-api-demos.p12 --prompt --name 'Electron API Demos' --url 'http://electron.atom.io'",
 
+  _electron.autoUpdater.on('checking-for-update', function () {
+
+    console.error("check");
+  });
   // 최신 버전 다운로드 완료 때의 처리
   _electron.autoUpdater.on("update-downloaded", function (event, releaseNotes) {
     confirmRestart(releaseNotes).then(function () {
@@ -124,6 +130,7 @@ function checkUpdate() {
   });
 
   _electron.autoUpdater.on("error", function (e) {
+    conosle, log("씨발!");
     console.error(e.message);
   });
 
