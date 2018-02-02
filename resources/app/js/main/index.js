@@ -130,7 +130,7 @@ function checkUpdate() {
   });
 
   _electron.autoUpdater.on("error", function (e) {
-    conosle, log("씨발!");
+    
     console.error(e.message);
   });
 
